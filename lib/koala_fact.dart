@@ -14,11 +14,16 @@ class _KoalaFactState extends State<KoalaFact> {
     switch (snapshot.connectionState) {
       case ConnectionState.waiting:
         return CupertinoActivityIndicator(
-          radius: 20,
+          radius: 15,
         );
         break;
       default:
-        return Text('${snapshot.data}');
+        return Text(
+          '${snapshot.data}',
+          style: TextStyle(
+            fontSize: snapshot.data == '🐨' ? 48 : 24.0,
+          ),
+        );
     }
   }
 

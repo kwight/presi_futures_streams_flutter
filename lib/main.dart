@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'koala.dart';
 import 'koala_fact.dart';
 import 'koala_feed.dart';
+import 'koala_firestore.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,18 +11,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        textTheme: TextTheme().copyWith(bodyText2: TextStyle(fontSize: 30)),
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(),
+    return CupertinoApp(
+      title: 'KoalaAid',
+      home: Home(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
