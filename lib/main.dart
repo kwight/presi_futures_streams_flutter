@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'koala.dart';
 import 'koala_fact.dart';
 import 'koala_feed.dart';
 import 'koala_firestore.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoApp(
-      title: 'KoalaAid',
-      home: Home(),
-    );
-  }
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(
+    MultiProvider(
+      providers: [
+        StreamProvider<QuerySnapshot>.value(
+          value: Firestore.instance.collection('koalas').snapshots(),
+        ),
+      ],
+      child: CupertinoApp(
+        debugShowCheckedModeBanner: false,
+        home: Home(),
+      ),
+    ),
+  );
 }
 
 class Home extends StatelessWidget {
@@ -31,7 +37,8 @@ class Home extends StatelessWidget {
               child: Center(
                 // child: Koala(),
                 // child: KoalaFact(),
-                child: KoalaFeed(),
+                // child: KoalaFeed(),
+                child: KoalaFirestore(),
               ),
             ),
           ],
