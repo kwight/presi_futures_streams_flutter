@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -16,5 +17,3 @@ Stream<int> counter() async* {
     if (i == 10) break;
   }
 }
-
-class KoalaFood {}

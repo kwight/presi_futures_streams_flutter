@@ -34,7 +34,7 @@ class MyHomePage extends StatelessWidget {
               child: Center(
                 // child: Koala(),
                 // child: KoalaFact(),
-                child: KoalaStream(),
+                child: KoalaFeed(),
               ),
             ),
           ],
