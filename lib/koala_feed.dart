@@ -26,33 +26,28 @@ class FeedKoalas extends StatefulWidget {
 class _FeedKoalasState extends State<FeedKoalas> {
   double size = 50.0;
 
-  onPressed() {
-    setState(() {
-      size = size + 10;
-    });
-    koalaFeeding.sink.add(size);
-  }
-
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
       child: Text('Feed The Koalas!'),
       color: CupertinoColors.activeBlue,
-      onPressed: onPressed,
+      onPressed: () {
+        setState(() {
+          size = size + 30;
+        });
+        koalaFeeding.sink.add(size);
+      },
     );
   }
 }
 
 class HungryKoala extends StatelessWidget {
   Widget builder(BuildContext context, AsyncSnapshot snapshot) {
-    // switch (snapshot.connectionState) {
-    //   case ConnectionState.waiting:
-    //     return CupertinoActivityIndicator(
-    //       radius: 20,
-    //     );
-    //     break;
-    //   default:
-    return Text('🐨', style: TextStyle(fontSize: snapshot.data));
+    return AnimatedDefaultTextStyle(
+        style: TextStyle(fontSize: snapshot.data),
+        duration: Duration(seconds: 1),
+        curve: Curves.elasticInOut,
+        child: Text('🐨'));
   }
 
   @override
