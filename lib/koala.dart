@@ -9,12 +9,14 @@ class Koala extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (!snapshot.hasData) {
           return CupertinoActivityIndicator(
-            radius: 20,
+            radius: 15,
           );
         }
-        return Text(
-          snapshot.data,
-          style: TextStyle(fontSize: 200),
+        return Container(
+          child: Text(
+            snapshot.data,
+            style: TextStyle(fontSize: 100),
+          ),
         );
       },
     );
