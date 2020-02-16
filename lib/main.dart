@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'koala.dart';
 import 'koala_fact.dart';
+import 'koala_feed.dart';
 
 void main() => runApp(MyApp());
 
@@ -32,7 +33,8 @@ class MyHomePage extends StatelessWidget {
               padding: const EdgeInsets.all(20.0),
               child: Center(
                 // child: Koala(),
-                child: KoalaFact(),
+                // child: KoalaFact(),
+                child: KoalaStream(),
               ),
             ),
           ],
