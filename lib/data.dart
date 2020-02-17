@@ -28,7 +28,7 @@ class KoalaData {
   KoalaData({
     @required this.id,
     this.size = 50,
-    this.color = CupertinoColors.activeBlue,
+    this.color = CupertinoColors.activeOrange,
   });
 
   factory KoalaData.fromDocument(DocumentSnapshot document) {
@@ -39,11 +39,8 @@ class KoalaData {
         color = CupertinoColors.activeGreen;
         break;
       case 'orange':
-        color = CupertinoColors.activeOrange;
-        break;
-      case 'blue':
       default:
-        color = CupertinoColors.activeBlue;
+        color = CupertinoColors.activeOrange;
         break;
     }
     return KoalaData(

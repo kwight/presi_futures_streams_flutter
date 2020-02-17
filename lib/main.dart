@@ -10,12 +10,8 @@ import 'koala_firestore.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
-    MultiProvider(
-      providers: [
-        StreamProvider<QuerySnapshot>.value(
-          value: Firestore.instance.collection('koalas').snapshots(),
-        ),
-      ],
+    StreamProvider(
+      create: (_) => Firestore.instance.collection('koalas').snapshots(),
       child: CupertinoApp(
         debugShowCheckedModeBanner: false,
         home: Home(),
@@ -31,8 +27,8 @@ class Home extends StatelessWidget {
       body: SafeArea(
         // child: Koala(),
         // child: KoalaFact(),
-        child: KoalaFeed(),
-        // child: KoalaFirestore(),
+        // child: KoalaFeed(),
+        child: KoalaFirestore(),
       ),
     );
   }
