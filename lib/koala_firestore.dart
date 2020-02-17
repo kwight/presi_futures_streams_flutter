@@ -50,14 +50,15 @@ class CloudKoala extends StatelessWidget {
   CloudKoala({
     @required this.id,
     this.size = 50,
-    this.color = CupertinoColors.activeBlue,
+    this.color = CupertinoColors.activeOrange,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => feedKoala(id, size),
-      child: Container(
+      child: AnimatedContainer(
+        duration: Duration(seconds: 1),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: color,
