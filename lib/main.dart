@@ -31,8 +31,8 @@ class Home extends StatelessWidget {
       body: SafeArea(
         // child: Koala(),
         // child: KoalaFact(),
-        // child: KoalaFeed(),
-        child: KoalaFirestore(),
+        child: KoalaFeed(),
+        // child: KoalaFirestore(),
       ),
     );
   }

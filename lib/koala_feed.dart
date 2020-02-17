@@ -2,48 +2,53 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-// final koalaFeeding = StreamController();
-final koalaFeeding = StreamController.broadcast();
+class KoalaFeed extends StatefulWidget {
+  @override
+  _KoalaFeedState createState() => _KoalaFeedState();
+}
 
-class KoalaFeed extends StatelessWidget {
+class _KoalaFeedState extends State<KoalaFeed> {
+  double size = 50.0;
+  final feeder = StreamController();
+  // final koalaFeeder = StreamController.broadcast();
+
+  @override
+  void dispose() {
+    feeder.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Column(
         children: <Widget>[
-          FeedKoalas(),
-          HungryKoala(),
-          HungryKoala(),
+          CupertinoButton(
+            child: Text('Feed The Koalas!'),
+            color: CupertinoColors.activeBlue,
+            onPressed: () {
+              setState(() {
+                size = size + 30;
+              });
+              feeder.sink.add(size);
+            },
+          ),
+          HungryKoala(
+            feeder: feeder,
+          ),
+          // HungryKoala(
+          //   feeder: feeder,
+          // ),
         ],
       ),
     );
   }
 }
 
-class FeedKoalas extends StatefulWidget {
-  @override
-  _FeedKoalasState createState() => _FeedKoalasState();
-}
-
-class _FeedKoalasState extends State<FeedKoalas> {
-  double size = 50.0;
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoButton(
-      child: Text('Feed The Koalas!'),
-      color: CupertinoColors.activeBlue,
-      onPressed: () {
-        setState(() {
-          size = size + 30;
-        });
-        koalaFeeding.sink.add(size);
-      },
-    );
-  }
-}
-
 class HungryKoala extends StatelessWidget {
+  final StreamController feeder;
+  HungryKoala({this.feeder});
+
   Widget builder(BuildContext context, AsyncSnapshot snapshot) {
     return AnimatedDefaultTextStyle(
         style: TextStyle(fontSize: snapshot.data),
@@ -55,7 +60,7 @@ class HungryKoala extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: koalaFeeding.stream,
+      stream: feeder.stream,
       initialData: 50.0,
       builder: builder,
     );
