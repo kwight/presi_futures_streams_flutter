@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:async';
 import 'dart:convert';
+import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
 Future<String> fetchKoalaFact() async {
@@ -20,15 +22,18 @@ Stream<int> counter() async* {
 }
 
 class KoalaData {
+  final String id;
   final int size;
   final Color color;
 
   KoalaData({
+    @required this.id,
     this.size = 50,
     this.color = CupertinoColors.activeBlue,
   });
 
-  factory KoalaData.fromMap(Map<String, dynamic> data) {
+  factory KoalaData.fromDocument(DocumentSnapshot document) {
+    var data = document.data;
     var color;
     switch (data['color']) {
       case 'green':
@@ -43,8 +48,29 @@ class KoalaData {
         break;
     }
     return KoalaData(
+      id: document.documentID,
       size: data['size'],
       color: color,
     );
   }
+}
+
+void feedKoala(String id, int size) {
+  var reference = Firestore.instance.document('koalas/$id');
+  Firestore.instance.runTransaction((Transaction transaction) async {
+    DocumentSnapshot snapshot = await transaction.get(reference);
+    if (snapshot.exists) {
+      await transaction.update(reference, <String, dynamic>{'size': size + 20});
+    }
+  });
+}
+
+void resetKoalaSizes(BuildContext context) {
+  var koalas = Provider.of<QuerySnapshot>(context, listen: false);
+  koalas.documents.forEach((koala) {
+    var reference = Firestore.instance.document('koalas/${koala.documentID}');
+    Firestore.instance.runTransaction((Transaction transaction) async {
+      await transaction.update(reference, <String, dynamic>{'size': 50});
+    });
+  });
 }

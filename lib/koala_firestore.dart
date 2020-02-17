@@ -8,40 +8,66 @@ class KoalaFirestore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var koalas = Provider.of<QuerySnapshot>(context);
-    return koalas == null
-        ? CupertinoActivityIndicator()
-        : GridView.builder(
-            gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-            itemCount: 2,
-            itemBuilder: (BuildContext context, int index) {
-              KoalaData data = KoalaData.fromMap(koalas.documents[index].data);
-              return CloudKoala(
-                size: data.size,
-                color: data.color,
-              );
-            },
-          );
+    return Column(
+      children: <Widget>[
+        CupertinoButton(
+          child: Text('Feed Koalas!'),
+          onPressed: () {},
+          color: CupertinoColors.activeBlue,
+        ),
+        CupertinoButton(
+          child: Text('Reset Koalas'),
+          onPressed: () => resetKoalaSizes(context),
+          color: CupertinoColors.activeBlue,
+        ),
+        Expanded(
+            child: koalas == null
+                ? CupertinoActivityIndicator()
+                : GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2),
+                    itemCount: koalas.documents.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      KoalaData data =
+                          KoalaData.fromDocument(koalas.documents[index]);
+                      return CloudKoala(
+                        id: data.id,
+                        size: data.size,
+                        color: data.color,
+                      );
+                    },
+                  )),
+      ],
+    );
   }
 }
 
 class CloudKoala extends StatelessWidget {
+  final String id;
   final int size;
   final Color color;
 
   CloudKoala({
+    @required this.id,
     this.size = 50,
     this.color = CupertinoColors.activeBlue,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: color,
-      child: Text(
-        '🐨',
-        style: TextStyle(
-          fontSize: size.toDouble(),
+    return GestureDetector(
+      onTap: () => feedKoala(id, size),
+      child: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: color,
+        ),
+        alignment: Alignment.center,
+        child: AnimatedDefaultTextStyle(
+          style: TextStyle(fontSize: size.toDouble()),
+          duration: Duration(seconds: 1),
+          curve: Curves.elasticInOut,
+          child: Text('🐨'),
         ),
       ),
     );
