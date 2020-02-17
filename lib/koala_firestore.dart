@@ -11,13 +11,13 @@ class KoalaFirestore extends StatelessWidget {
     return Column(
       children: <Widget>[
         CupertinoButton(
-          child: Text('Feed Koalas!'),
-          onPressed: () {},
+          child: Text('Rescue A Koala!'),
+          onPressed: () => rescueKoala(),
           color: CupertinoColors.activeBlue,
         ),
         CupertinoButton(
           child: Text('Reset Koalas'),
-          onPressed: () => resetKoalaSizes(context),
+          onPressed: () => resetKoalaSizes(),
           color: CupertinoColors.activeBlue,
         ),
         Expanded(

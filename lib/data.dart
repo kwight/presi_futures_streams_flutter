@@ -65,12 +65,19 @@ void feedKoala(String id, int size) {
   });
 }
 
-void resetKoalaSizes(BuildContext context) {
-  var koalas = Provider.of<QuerySnapshot>(context, listen: false);
+void resetKoalaSizes() async {
+  var koalas = await Firestore.instance.collection('koalas').getDocuments();
   koalas.documents.forEach((koala) {
     var reference = Firestore.instance.document('koalas/${koala.documentID}');
     Firestore.instance.runTransaction((Transaction transaction) async {
       await transaction.update(reference, <String, dynamic>{'size': 50});
     });
+  });
+}
+
+void rescueKoala() {
+  Firestore.instance.collection('koalas').document().setData({
+    'size': 50,
+    'color': 'orange',
   });
 }
