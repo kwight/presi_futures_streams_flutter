@@ -7,16 +7,16 @@ class Koala extends StatelessWidget {
     return FutureBuilder(
       future: Future.delayed(Duration(seconds: 2), () => '🐨'),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (!snapshot.hasData) {
-          return CupertinoActivityIndicator(
-            radius: 15,
-          );
-        }
         return Container(
-          child: Text(
-            snapshot.data,
-            style: TextStyle(fontSize: 100),
-          ),
+          alignment: Alignment.center,
+          child: snapshot.hasData
+              ? Text(
+                  snapshot.data,
+                  style: TextStyle(fontSize: 100),
+                )
+              : CupertinoActivityIndicator(
+                  radius: 15,
+                ),
         );
       },
     );

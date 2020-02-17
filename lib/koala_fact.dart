@@ -29,23 +29,24 @@ class _KoalaFactState extends State<KoalaFact> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        CupertinoButton(
-          color: CupertinoColors.activeBlue,
-          child: Text('Koala Fact'),
-          onPressed: () {
-            setState(() {
-              fact = fetchKoalaFact();
-            });
-          },
-        ),
-        FutureBuilder(
-          future: fact,
-          builder: builder,
-        ),
-      ],
+    return Center(
+      child: Column(
+        children: <Widget>[
+          CupertinoButton(
+            color: CupertinoColors.activeBlue,
+            child: Text('Koala Fact'),
+            onPressed: () {
+              setState(() {
+                fact = fetchKoalaFact();
+              });
+            },
+          ),
+          FutureBuilder(
+            future: fact,
+            builder: builder,
+          ),
+        ],
+      ),
     );
   }
 }

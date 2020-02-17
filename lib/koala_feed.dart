@@ -2,18 +2,20 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-final koalaFeeding = StreamController();
-// final koalaFeeding = StreamController.broadcast();
+// final koalaFeeding = StreamController();
+final koalaFeeding = StreamController.broadcast();
 
 class KoalaFeed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        FeedKoalas(),
-        HungryKoala(),
-        // HungryKoala(),
-      ],
+    return Center(
+      child: Column(
+        children: <Widget>[
+          FeedKoalas(),
+          HungryKoala(),
+          HungryKoala(),
+        ],
+      ),
     );
   }
 }

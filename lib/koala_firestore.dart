@@ -58,7 +58,8 @@ class CloudKoala extends StatelessWidget {
     return GestureDetector(
       onTap: () => feedKoala(id, size),
       child: AnimatedContainer(
-        duration: Duration(seconds: 1),
+        curve: Curves.easeInExpo,
+        duration: Duration(milliseconds: 700),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: color,
