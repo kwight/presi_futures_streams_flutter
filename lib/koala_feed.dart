@@ -7,9 +7,9 @@ class KoalaFeed extends StatefulWidget {
 }
 
 class _KoalaFeedState extends State<KoalaFeed> {
-  double size = 50.0;
-  final feeder = StreamController();
-  // final koalaFeeder = StreamController.broadcast();
+  double size = 100.0;
+  // final feeder = StreamController();
+  final feeder = StreamController.broadcast();
 
   @override
   void dispose() {
@@ -22,22 +22,38 @@ class _KoalaFeedState extends State<KoalaFeed> {
     return Center(
       child: Column(
         children: <Widget>[
-          CupertinoButton(
-            child: Text('Feed The Koalas!'),
-            color: CupertinoColors.activeBlue,
-            onPressed: () {
-              setState(() {
-                size = size + 30;
-              });
-              feeder.sink.add(size);
-            },
+          Expanded(
+            flex: 6,
+            // flex: 3,
+            child: Center(
+              child: HungryKoala(
+                feeder: feeder,
+              ),
+            ),
           ),
-          HungryKoala(
-            feeder: feeder,
-          ),
-          // HungryKoala(
-          //   feeder: feeder,
+          // Expanded(
+          //   flex: 3,
+          //   child: Center(
+          //     child: HungryKoala(
+          //       feeder: feeder,
+          //     ),
+          //   ),
           // ),
+          Expanded(
+            flex: 2,
+            child: Center(
+              child: CupertinoButton(
+                child: Text('Feed The Koalas!'),
+                color: CupertinoColors.activeBlue,
+                onPressed: () {
+                  setState(() {
+                    size = size + 30;
+                  });
+                  feeder.sink.add(size);
+                },
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -51,7 +67,7 @@ class HungryKoala extends StatelessWidget {
   Widget builder(BuildContext context, AsyncSnapshot snapshot) {
     return AnimatedDefaultTextStyle(
         style: TextStyle(
-          fontSize: snapshot.hasData ? snapshot.data : 50.0,
+          fontSize: snapshot.hasData ? snapshot.data : 100.0,
         ),
         duration: Duration(seconds: 1),
         curve: Curves.elasticInOut,
