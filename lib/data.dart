@@ -1,53 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 Future<String> fetchKoalaFact() async {
-  final response = await http.get('https://some-random-api.ml/facts/koala');
-  return response.statusCode == 200
-      ? jsonDecode(response.body)['fact']
-      : 'Error loading fact 😢';
-}
-
-Stream<int> counter() async* {
-  int i = 0;
-  while (true) {
-    await Future.delayed(Duration(seconds: 1));
-    yield i++;
-    if (i == 10) break;
-  }
-}
-
-class KoalaData {
-  final String id;
-  final int size;
-  final Color color;
-
-  KoalaData({
-    @required this.id,
-    this.size = 50,
-    this.color = CupertinoColors.activeOrange,
-  });
-
-  factory KoalaData.fromDocument(DocumentSnapshot document) {
-    var data = document.data;
-    var color;
-    switch (data['color']) {
-      case 'green':
-        color = CupertinoColors.activeGreen;
-        break;
-      case 'orange':
-      default:
-        color = CupertinoColors.activeOrange;
-        break;
-    }
-    return KoalaData(
-      id: document.documentID,
-      size: data['size'],
-      color: color,
-    );
+  try {
+    final response = await http.get('https://some-random-api.ml/facts/koala');
+    return response.statusCode == 200
+        ? jsonDecode(response.body)['fact']
+        : 'Weird. ¯\_(ツ)_/¯';
+  } catch (error) {
+    return 'Error ${error.toString()} 😢';
   }
 }
 

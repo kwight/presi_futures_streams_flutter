@@ -9,15 +9,21 @@ import 'koala_firestore.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(
-    StreamProvider(
-      create: (_) => Firestore.instance.collection('koalas').snapshots(),
-      child: CupertinoApp(
-        debugShowCheckedModeBanner: false,
-        home: Home(),
-      ),
-    ),
-  );
+
+  runApp(CupertinoApp(
+    debugShowCheckedModeBanner: false,
+    home: Home(),
+  ));
+
+  // runApp(
+  //   StreamProvider(
+  //     create: (_) => Firestore.instance.collection('koalas').snapshots(),
+  //     child: CupertinoApp(
+  //       debugShowCheckedModeBanner: false,
+  //       home: Home(),
+  //     ),
+  //   ),
+  // );
 }
 
 class Home extends StatelessWidget {

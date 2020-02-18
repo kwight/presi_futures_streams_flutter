@@ -51,18 +51,37 @@ class HungryKoala extends StatelessWidget {
 
   Widget builder(BuildContext context, AsyncSnapshot snapshot) {
     return AnimatedDefaultTextStyle(
-        style: TextStyle(fontSize: snapshot.data),
+        style: TextStyle(
+          fontSize: snapshot.hasData ? snapshot.data : 50.0,
+        ),
         duration: Duration(seconds: 1),
         curve: Curves.elasticInOut,
         child: Text('🐨'));
+  }
+
+  Widget connectionAwareBuilder(BuildContext context, AsyncSnapshot snapshot) {
+    switch (snapshot.connectionState) {
+      case ConnectionState.active:
+        return AnimatedDefaultTextStyle(
+            style: TextStyle(fontSize: snapshot.data),
+            duration: Duration(seconds: 1),
+            curve: Curves.elasticInOut,
+            child: Text('🐨'));
+      case ConnectionState.done:
+        return Text('Connection was closed.');
+      case ConnectionState.none:
+      case ConnectionState.waiting:
+      default:
+        return CupertinoActivityIndicator();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: feeder.stream,
-      initialData: 50.0,
       builder: builder,
+      // builder: connectionAwareBuilder,
     );
   }
 }

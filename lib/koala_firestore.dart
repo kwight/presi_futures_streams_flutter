@@ -28,13 +28,7 @@ class KoalaFirestore extends StatelessWidget {
                         crossAxisCount: 2),
                     itemCount: koalas.documents.length,
                     itemBuilder: (BuildContext context, int index) {
-                      KoalaData data =
-                          KoalaData.fromDocument(koalas.documents[index]);
-                      return CloudKoala(
-                        id: data.id,
-                        size: data.size,
-                        color: data.color,
-                      );
+                      return CloudKoala.fromDocument(koalas.documents[index]);
                     },
                   )),
       ],
@@ -52,6 +46,28 @@ class CloudKoala extends StatelessWidget {
     this.size = 50,
     this.color = CupertinoColors.activeOrange,
   });
+
+  factory CloudKoala.fromDocument(DocumentSnapshot document) {
+    if (document.data == null) {
+      return null;
+    }
+    var data = document.data;
+    var color;
+    switch (data['color']) {
+      case 'green':
+        color = CupertinoColors.activeGreen;
+        break;
+      case 'orange':
+      default:
+        color = CupertinoColors.activeOrange;
+        break;
+    }
+    return CloudKoala(
+      id: document.documentID,
+      size: data['size'],
+      color: color,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
