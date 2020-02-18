@@ -11,7 +11,7 @@ class Koala extends StatelessWidget {
           child: snapshot.hasData
               ? Text(
                   snapshot.data,
-                  style: TextStyle(fontSize: 100),
+                  style: TextStyle(fontSize: 90),
                 )
               : CupertinoActivityIndicator(
                   radius: 15,

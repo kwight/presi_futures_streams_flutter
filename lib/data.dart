@@ -19,8 +19,8 @@ void feedKoala(String id, int size) {
     DocumentSnapshot snapshot = await transaction.get(reference);
     if (snapshot.exists) {
       await transaction.update(reference, <String, dynamic>{
-        'size': size < 140 ? size + 30 : 140,
-        'color': size + 30 >= 140 ? 'green' : 'orange'
+        'size': size < 130 ? size + 20 : 130,
+        'color': size + 20 >= 130 ? 'green' : 'orange'
       });
     }
   });
@@ -32,14 +32,14 @@ void resetKoalaSizes() async {
     var reference = Firestore.instance.document('koalas/${koala.documentID}');
     Firestore.instance.runTransaction((Transaction transaction) async {
       await transaction
-          .update(reference, <String, dynamic>{'size': 50, 'color': 'orange'});
+          .update(reference, <String, dynamic>{'size': 90, 'color': 'orange'});
     });
   });
 }
 
 void rescueKoala() {
   Firestore.instance.collection('koalas').document().setData({
-    'size': 50,
+    'size': 90,
     'color': 'orange',
   });
 }

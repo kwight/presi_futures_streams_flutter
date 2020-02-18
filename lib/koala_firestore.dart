@@ -9,17 +9,26 @@ class KoalaFirestore extends StatelessWidget {
     var koalas = Provider.of<QuerySnapshot>(context);
     return Column(
       children: <Widget>[
-        CupertinoButton(
-          child: Text('Rescue A Koala!'),
-          onPressed: () => rescueKoala(),
-          color: CupertinoColors.activeBlue,
-        ),
-        CupertinoButton(
-          child: Text('Reset Koalas'),
-          onPressed: () => resetKoalaSizes(),
-          color: CupertinoColors.activeBlue,
+        Expanded(
+          flex: 1,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              CupertinoButton(
+                child: Text('Rescue A Koala!'),
+                onPressed: () => rescueKoala(),
+                color: CupertinoColors.activeBlue,
+              ),
+              CupertinoButton(
+                child: Text('Reset Koalas'),
+                onPressed: () => resetKoalaSizes(),
+                color: CupertinoColors.activeBlue,
+              ),
+            ],
+          ),
         ),
         Expanded(
+            flex: 3,
             child: koalas == null
                 ? CupertinoActivityIndicator()
                 : GridView.builder(
@@ -42,7 +51,7 @@ class CloudKoala extends StatelessWidget {
 
   CloudKoala({
     @required this.id,
-    this.size = 50,
+    this.size = 90,
     this.color = CupertinoColors.activeOrange,
   });
 
@@ -70,21 +79,24 @@ class CloudKoala extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => feedKoala(id, size),
-      child: AnimatedContainer(
-        curve: Curves.easeInExpo,
-        duration: Duration(milliseconds: 700),
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: color,
-        ),
-        alignment: Alignment.center,
-        child: AnimatedDefaultTextStyle(
-          style: TextStyle(fontSize: size.toDouble()),
-          duration: Duration(seconds: 1),
-          curve: Curves.elasticInOut,
-          child: Text('🐨'),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GestureDetector(
+        onTap: () => feedKoala(id, size),
+        child: AnimatedContainer(
+          curve: Curves.easeInExpo,
+          duration: Duration(milliseconds: 700),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: color,
+          ),
+          alignment: Alignment.center,
+          child: AnimatedDefaultTextStyle(
+            style: TextStyle(fontSize: size.toDouble()),
+            duration: Duration(seconds: 1),
+            curve: Curves.elasticInOut,
+            child: Text('🐨'),
+          ),
         ),
       ),
     );

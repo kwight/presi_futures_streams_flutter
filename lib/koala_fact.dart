@@ -37,7 +37,7 @@ class _KoalaFactState extends State<KoalaFact> {
             child: Center(
               child: Text(
                 '🐨',
-                style: TextStyle(fontSize: 100),
+                style: TextStyle(fontSize: 90),
               ),
             ),
           ),

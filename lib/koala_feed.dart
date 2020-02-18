@@ -7,7 +7,7 @@ class KoalaFeed extends StatefulWidget {
 }
 
 class _KoalaFeedState extends State<KoalaFeed> {
-  double size = 100.0;
+  double size = 90.0;
   // final feeder = StreamController();
   final feeder = StreamController.broadcast();
 
@@ -67,7 +67,7 @@ class HungryKoala extends StatelessWidget {
   Widget builder(BuildContext context, AsyncSnapshot snapshot) {
     return AnimatedDefaultTextStyle(
         style: TextStyle(
-          fontSize: snapshot.hasData ? snapshot.data : 100.0,
+          fontSize: snapshot.hasData ? snapshot.data : 90.0,
         ),
         duration: Duration(seconds: 1),
         curve: Curves.elasticInOut,
