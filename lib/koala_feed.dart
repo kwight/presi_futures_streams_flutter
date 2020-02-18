@@ -47,7 +47,7 @@ class _KoalaFeedState extends State<KoalaFeed> {
                 color: CupertinoColors.activeBlue,
                 onPressed: () {
                   setState(() {
-                    size = size + 30;
+                    size = size + 20;
                   });
                   feeder.sink.add(size);
                 },
