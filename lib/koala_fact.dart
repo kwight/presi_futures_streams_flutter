@@ -7,7 +7,7 @@ class KoalaFact extends StatefulWidget {
 }
 
 class _KoalaFactState extends State<KoalaFact> {
-  Future<String> fact = Future.value('🐨');
+  Future<String> fact = Future.value('Let\'s load some facts!');
 
   Widget builder(BuildContext context, AsyncSnapshot snapshot) {
     switch (snapshot.connectionState) {
@@ -15,7 +15,7 @@ class _KoalaFactState extends State<KoalaFact> {
         return Text(
           '${snapshot.data}',
           style: TextStyle(
-            fontSize: snapshot.data == '🐨' ? 48 : 24.0,
+            fontSize: 24.0,
           ),
         );
       case ConnectionState.waiting:
@@ -32,18 +32,37 @@ class _KoalaFactState extends State<KoalaFact> {
     return Center(
       child: Column(
         children: <Widget>[
-          CupertinoButton(
-            color: CupertinoColors.activeBlue,
-            child: Text('Koala Fact'),
-            onPressed: () {
-              setState(() {
-                fact = fetchKoalaFact();
-              });
-            },
+          Expanded(
+            flex: 1,
+            child: Center(
+              child: Text(
+                '🐨',
+                style: TextStyle(fontSize: 100),
+              ),
+            ),
           ),
-          FutureBuilder(
-            future: fact,
-            builder: builder,
+          Expanded(
+            flex: 2,
+            child: Center(
+              child: FutureBuilder(
+                future: fact,
+                builder: builder,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Center(
+              child: CupertinoButton(
+                color: CupertinoColors.activeBlue,
+                child: Text('Load Koala Fact'),
+                onPressed: () {
+                  setState(() {
+                    fact = fetchKoalaFact();
+                  });
+                },
+              ),
+            ),
           ),
         ],
       ),
