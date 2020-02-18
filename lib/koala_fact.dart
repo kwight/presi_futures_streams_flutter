@@ -11,18 +11,19 @@ class _KoalaFactState extends State<KoalaFact> {
 
   Widget builder(BuildContext context, AsyncSnapshot snapshot) {
     switch (snapshot.connectionState) {
-      case ConnectionState.waiting:
-        return CupertinoActivityIndicator(
-          radius: 15,
-        );
-        break;
-      default:
+      case ConnectionState.done:
         return Text(
           '${snapshot.data}',
           style: TextStyle(
             fontSize: snapshot.data == '🐨' ? 48 : 24.0,
           ),
         );
+      case ConnectionState.waiting:
+      default:
+        return CupertinoActivityIndicator(
+          radius: 15,
+        );
+        break;
     }
   }
 
